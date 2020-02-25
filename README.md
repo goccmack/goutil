@@ -6,5 +6,6 @@ Copyright 2020 Marius Ackerman.
 
 Go utilities used in other repositories:
 
+- angle is a utility library for angles, including cosine similarity and random angles.
 - ioutil contains functions to write directories and files.
 - stringslice contains functions for working with slices of string.
