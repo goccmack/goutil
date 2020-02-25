@@ -21,7 +21,7 @@ import (
 	"math"
 	"math/rand"
 
-	"goutil/angle"
+	"github.com/goccmack/goutil/angle"
 )
 
 /*
