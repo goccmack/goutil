@@ -2,12 +2,13 @@
 
 Package log supports logging to a managed set of log files.
 
-The logger is configured by a JSON file called `<component>.log.config`. `<component>` is the name of
-the go binary executable (os.Executable()).
-The logger looks for the
-log config file first in the snooker
-configuration directory (if it exists) and then in \$PWD
-(see <https://github.com/goccmack/projects/GOUTIL/repos/snookeros/browse> for details).
+The logger is configured by a JSON file called `log.config` or `<exe>.log.config`.
+If `<exe>.log.config` exists in the same directory as other `log.config` files,
+it will be used for the executable: `<exe>`, which is equal to `os.Executable()`.
+All executables, `<exe>`, for
+which there is no `<exe>.log.config` will use `log.config` if it exists. If
+there are no log config files in the working directory of an executable, the
+logging defaults will be used (see godocs for config).
 
 The following is a JSON configuration structure containing the default logger paramerters:
 
@@ -18,9 +19,6 @@ The following is a JSON configuration structure containing the default logger pa
     	"Priority": "INFO",
     	"SuppressedFiles": ""
     }
-
-If the working directory does not contain a log.config file the logger uses these parameters. All
-fields of log.config are optional. The logger will used default values for missing parameters.
 
 The logger reads log.config periodically. The logger uses changed parameters. The log.config can
 be changed while the program is running and further logging reflects the changed log.config.

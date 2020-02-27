@@ -1,3 +1,17 @@
+//  Copyright 2020 Marius Ackerman
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+
 package log
 
 import (
@@ -7,11 +21,10 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"strings"
 )
 
 const (
-	logConfigFileSuffix = "logging.config"
+	logConfigFileSuffix = "log.config"
 )
 
 type jsonConfig struct {
@@ -98,6 +111,7 @@ var (
 	fileName = getFileName()
 )
 
+// Default config
 const (
 	// DefaultLogRootDir determines the directory for log files if not specified in log.config
 	DefaultLogRootDir = "/usr/local/var/log"
@@ -124,16 +138,17 @@ func DefaultConfig() *Config {
 }
 
 func getConfigFile() string {
-	cwd, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	files, err := ioutil.ReadDir(cwd)
+	files, err := ioutil.ReadDir(".")
 	if err != nil {
 		panic(err)
 	}
 	for _, f := range files {
-		if !f.IsDir() && strings.HasSuffix(f.Name(), logConfigFileSuffix) {
+		if f.Name() == fmt.Sprintf("%s.%s", fileName, logConfigFileSuffix) {
+			return f.Name()
+		}
+	}
+	for _, f := range files {
+		if f.Name() == logConfigFileSuffix {
 			return f.Name()
 		}
 	}
