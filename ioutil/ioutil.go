@@ -27,6 +27,12 @@ import (
 // FilePermission given to all created files and directories
 const FilePermission = 0731
 
+// Exist returns true if path exists, otherwise false.
+func Exist(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
+}
+
 // MkdirAll makes all the directories in path.
 func MkdirAll(path string) error {
 	if path == "" {
