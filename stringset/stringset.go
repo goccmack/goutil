@@ -76,22 +76,25 @@ func (ss *StringSet) Elements() []string {
 }
 
 /*
-Len returns the number of elements in ss
-*/
-func (ss *StringSet) Len() int {
-	return len(ss.set)
-}
-
-/*
 Equal returns true iff ss and ss1 have exactly the same elements
 */
 func (ss *StringSet) Equal(ss1 *StringSet) bool {
+	if ss.Len() != ss1.Len() {
+		return false
+	}
 	for s := range ss.set {
 		if !ss1.Contain(s) {
 			return false
 		}
 	}
 	return true
+}
+
+/*
+Len returns the number of elements in ss
+*/
+func (ss *StringSet) Len() int {
+	return len(ss.set)
 }
 
 /*

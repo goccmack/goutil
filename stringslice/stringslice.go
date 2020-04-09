@@ -56,6 +56,19 @@ func Contains(s []string, e string) bool {
 }
 
 /*
+Find returns a list of indices in ss of strings equal to s.
+Find returns a nil slice if ss does not contain s.
+*/
+func Find(ss []string, s string) (indices []int) {
+	for i, s1 := range ss {
+		if s1 == s {
+			indices = append(indices, i)
+		}
+	}
+	return
+}
+
+/*
 MatchRegex returns true iff at least one of the strins in ss matches re.
 */
 func MatchRegex(ss []string, re *regexp.Regexp) bool {
