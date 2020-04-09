@@ -17,46 +17,76 @@ package stringset: Operations on a set of strings
 */
 package stringset
 
+/*
+StringSet implements a set of strings
+*/
 type StringSet struct {
 	set map[string]bool
 }
 
-func New() *StringSet {
-	return &StringSet{make(map[string]bool)}
+// New returns a new StringSet containing elements
+func New(elements ...string) *StringSet {
+	set := &StringSet{make(map[string]bool)}
+	set.Add(elements...)
+	return set
 }
 
 /*
-Return ss to allow chained commands
+Add elements to ss and return ss to allow chained commands
 */
-func (ss *StringSet) Add(s ...string) *StringSet {
-	for _, s1 := range s {
-		ss.set[s1] = true
+func (ss *StringSet) Add(elements ...string) *StringSet {
+	for _, e := range elements {
+		ss.set[e] = true
 	}
 	return ss
 }
 
+/*
+AddSet adds the elements of ss1 to ss and returns ss to allow chained commands
+*/
+func (ss *StringSet) AddSet(ss1 *StringSet) *StringSet {
+	ss.Add(ss1.List()...)
+	return ss
+}
+
+/*
+Clone returns a deep copy of ss
+*/
 func (ss *StringSet) Clone() *StringSet {
 	return New().Add(ss.List()...)
 }
 
+/*
+Contain returns true iff ss contains s
+*/
 func (ss *StringSet) Contain(s string) bool {
 	_, exist := ss.set[s]
 	return exist
 }
 
-func (this *StringSet) Equal(that *StringSet) bool {
-	for s, _ := range this.set {
-		if !that.Contain(s) {
+/*
+Equal returns true iff ss and ss1 have exactly the same elements
+*/
+func (ss *StringSet) Equal(ss1 *StringSet) bool {
+	for s, _ := range ss.set {
+		if !ss1.Contain(s) {
 			return false
 		}
 	}
 	return true
 }
 
-func (ss *StringSet) Remove(s string) {
-	delete(ss.set, s)
+/*
+Remove element from ss and return ss to allow chained commands
+*/
+func (ss *StringSet) Remove(element string) *StringSet {
+	delete(ss.set, element)
+	return ss
 }
 
+/*
+List returns a slice containing the elements of ss
+*/
 func (ss *StringSet) List() []string {
 	sl := make([]string, 0, len(ss.set))
 	for s, _ := range ss.set {
