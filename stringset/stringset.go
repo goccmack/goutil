@@ -65,6 +65,24 @@ func (ss *StringSet) Contain(s string) bool {
 }
 
 /*
+Elements returns a slice containing the elements of ss
+*/
+func (ss *StringSet) Elements() []string {
+	sl := make([]string, 0, len(ss.set))
+	for s := range ss.set {
+		sl = append(sl, s)
+	}
+	return sl
+}
+
+/*
+Len returns the number of elements in ss
+*/
+func (ss *StringSet) Len() int {
+	return len(ss.set)
+}
+
+/*
 Equal returns true iff ss and ss1 have exactly the same elements
 */
 func (ss *StringSet) Equal(ss1 *StringSet) bool {
@@ -82,15 +100,4 @@ Remove element from ss and return ss to allow chained commands
 func (ss *StringSet) Remove(element string) *StringSet {
 	delete(ss.set, element)
 	return ss
-}
-
-/*
-Elements returns a slice containing the elements of ss
-*/
-func (ss *StringSet) Elements() []string {
-	sl := make([]string, 0, len(ss.set))
-	for s := range ss.set {
-		sl = append(sl, s)
-	}
-	return sl
 }
