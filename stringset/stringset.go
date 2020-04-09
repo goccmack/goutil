@@ -17,6 +17,8 @@ Package stringset: Operations on a set of strings
 */
 package stringset
 
+import "sort"
+
 /*
 StringSet implements a set of strings
 */
@@ -73,6 +75,15 @@ func (ss *StringSet) Elements() []string {
 		sl = append(sl, s)
 	}
 	return sl
+}
+
+/*
+ElementsSorted returns a slice containing the elements of ss sorted lexicographically
+*/
+func (ss *StringSet) ElementsSorted() []string {
+	elements := ss.Elements()
+	sort.Slice(elements, func(i, j int) bool { return elements[i] < elements[j] })
+	return elements
 }
 
 /*
