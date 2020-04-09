@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 /*
-package stringset: Operations on a set of strings
+Package stringset: Operations on a set of strings
 */
 package stringset
 
@@ -45,7 +45,7 @@ func (ss *StringSet) Add(elements ...string) *StringSet {
 AddSet adds the elements of ss1 to ss and returns ss to allow chained commands
 */
 func (ss *StringSet) AddSet(ss1 *StringSet) *StringSet {
-	ss.Add(ss1.List()...)
+	ss.Add(ss1.Elements()...)
 	return ss
 }
 
@@ -53,7 +53,7 @@ func (ss *StringSet) AddSet(ss1 *StringSet) *StringSet {
 Clone returns a deep copy of ss
 */
 func (ss *StringSet) Clone() *StringSet {
-	return New().Add(ss.List()...)
+	return New().Add(ss.Elements()...)
 }
 
 /*
@@ -68,7 +68,7 @@ func (ss *StringSet) Contain(s string) bool {
 Equal returns true iff ss and ss1 have exactly the same elements
 */
 func (ss *StringSet) Equal(ss1 *StringSet) bool {
-	for s, _ := range ss.set {
+	for s := range ss.set {
 		if !ss1.Contain(s) {
 			return false
 		}
@@ -85,11 +85,11 @@ func (ss *StringSet) Remove(element string) *StringSet {
 }
 
 /*
-List returns a slice containing the elements of ss
+Elements returns a slice containing the elements of ss
 */
-func (ss *StringSet) List() []string {
+func (ss *StringSet) Elements() []string {
 	sl := make([]string, 0, len(ss.set))
-	for s, _ := range ss.set {
+	for s := range ss.set {
 		sl = append(sl, s)
 	}
 	return sl
