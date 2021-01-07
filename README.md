@@ -1,8 +1,6 @@
 Copyright 2020 Marius Ackerman.
 
 [![Apache 2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Build Status](https://github.com/goccmack/goutil/workflows/build/badge.svg)](https://github.com/goccmack/goutil/actions)
-
 
 # goutil
 
