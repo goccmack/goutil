@@ -24,8 +24,11 @@ import (
 	"path/filepath"
 )
 
-// FilePermission given to all created files and directories
-const FilePermission = 0731
+// FilePermission given to all created files
+const FilePermission = 0644
+
+// File permission given to all created directories
+const DirPermission = 0755
 
 // Exist returns true if path exists, otherwise false.
 func Exist(path string) bool {
@@ -38,7 +41,7 @@ func MkdirAll(path string) error {
 	if path == "" {
 		return nil
 	}
-	return os.MkdirAll(path, FilePermission)
+	return os.MkdirAll(path, DirPermission)
 }
 
 // WriteFile creates all the non-existend directories in path before writing
